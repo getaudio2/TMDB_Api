@@ -1,5 +1,6 @@
 package com.example.fragments.Config;
 
+import com.example.fragments.Model.Film.FavFilmRequest;
 import com.example.fragments.Model.Film.searchFilmModel;
 
 import retrofit2.Call;
@@ -11,4 +12,6 @@ public interface ApiCall {
     @GET("search/movie?")
     Call<searchFilmModel> getData(@Query("api_key") String api_key, @Query("query") String query);
 
+    @GET("account/get2_audio2/favorite/movies?")
+    Call<FavFilmRequest> getFavMovies(@Query("api_key") String api_key, @Query("session_id") String session_id);
 }
