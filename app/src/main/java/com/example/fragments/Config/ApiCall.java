@@ -1,10 +1,13 @@
 package com.example.fragments.Config;
 
 import com.example.fragments.Model.Film.FavFilmRequest;
+import com.example.fragments.Model.Film.FavFilmResponse;
 import com.example.fragments.Model.Film.searchFilmModel;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiCall {
@@ -14,4 +17,8 @@ public interface ApiCall {
 
     @GET("account/get2_audio2/favorite/movies?")
     Call<FavFilmRequest> getFavMovies(@Query("api_key") String api_key, @Query("session_id") String session_id);
+
+    @POST("account/get2_audio2/favorite?")
+    Call<FavFilmResponse> setFavMovies(@Query("api_key") String api_key, @Query("session_id") String session_id, @Body FavFilmResponse favFilmResponse);
+
 }
