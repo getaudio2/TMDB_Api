@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -56,6 +57,8 @@ public class ListFragment extends Fragment {
         dialog.show();
 
         Button btnSaveList = alertCustomdialog.findViewById(R.id.btnSaveList);
+        EditText txtListName = alertCustomdialog.findViewById(R.id.txtList);
+        EditText txtListDesc = alertCustomdialog.findViewById(R.id.txtDescription);
 
         btnSaveList.setOnClickListener(new View.OnClickListener() {
             @Override

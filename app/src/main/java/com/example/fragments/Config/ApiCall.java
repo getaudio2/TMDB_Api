@@ -3,6 +3,8 @@ package com.example.fragments.Config;
 import com.example.fragments.Model.Film.FavFilmRequest;
 import com.example.fragments.Model.Film.FavFilmResponse;
 import com.example.fragments.Model.Film.searchFilmModel;
+import com.example.fragments.Model.List.ListModel;
+import com.example.fragments.Model.List.ListResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -20,5 +22,8 @@ public interface ApiCall {
 
     @POST("account/get2_audio2/favorite?")
     Call<FavFilmResponse> setFavMovies(@Query("api_key") String api_key, @Query("session_id") String session_id, @Body FavFilmResponse favFilmResponse);
+
+    @POST("list?")
+    Call<ListResponse> postList(@Query("api_key") String api_key, @Query("query") String session_id, @Body ListModel listModel);
 
 }

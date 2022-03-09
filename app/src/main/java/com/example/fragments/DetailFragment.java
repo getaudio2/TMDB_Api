@@ -60,6 +60,11 @@ public class DetailFragment extends Fragment {
         ImageButton btnFav = view.findViewById(R.id.btnFav);
         ImageButton btnAddtoList = view.findViewById(R.id.btnAddtoList);
 
+        if(bundle.getBoolean("fav") == true){
+            btnFav.setImageResource(R.drawable.ic_fav_on);
+            Log.i("test", "boolean true aaaaa");
+        }
+
 
         txtDetailTitle.setText(film.getOriginal_title());
         txtDetailDesc.setText(film.getOverview());
@@ -74,6 +79,8 @@ public class DetailFragment extends Fragment {
             public void onClick(View view) {
                 btnFav.setImageResource(R.drawable.ic_fav_on);
 
+                bundle.putBoolean("fav", true);
+
                 FavFilmResponse favFilmResponse = new FavFilmResponse(film.getId());
                 favFilmResponse.setFavorite(true);
                 favFilmResponse.setMedia_type("movie");
@@ -84,17 +91,18 @@ public class DetailFragment extends Fragment {
                 call.enqueue(new Callback<FavFilmResponse>() {
                     @Override
                     public void onResponse(Call<FavFilmResponse> call, Response<FavFilmResponse> response) {
-                        if (response.code() != 200) {
+                        if (response.code() != 201) {
                             Log.i("testApi", "checkConnection");
                             return;
                         } else {
-                            Log.i("SET AS FAVOURITE: ", "DONE");
+                            Log.i("SET AS FAVOURITE ", "DONE");
+                            Log.i("response message", "e" + response.raw());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<FavFilmResponse> call, Throwable t) {
-
+                        t.getCause();
                     }
                 });
             }
