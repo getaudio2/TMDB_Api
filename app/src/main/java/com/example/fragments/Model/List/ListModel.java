@@ -5,6 +5,12 @@ public class ListModel {
     public String description;
     public String language;
 
+    public ListModel(String name, String description) {
+        this.name = name;
+        this.description = description;
+        this.language = "en";
+    }
+
     public String getName() {
         return name;
     }

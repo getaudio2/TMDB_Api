@@ -24,6 +24,6 @@ public interface ApiCall {
     Call<FavFilmResponse> setFavMovies(@Query("api_key") String api_key, @Query("session_id") String session_id, @Body FavFilmResponse favFilmResponse);
 
     @POST("list?")
-    Call<ListResponse> postList(@Query("api_key") String api_key, @Query("query") String session_id, @Body ListModel listModel);
+    Call<ListResponse> postList(@Query("api_key") String api_key, @Query("session_id") String session_id, @Body ListModel listModel);
 
 }
