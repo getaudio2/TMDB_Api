@@ -29,6 +29,7 @@ import com.example.fragments.Model.Film.FavFilmResponse;
 import com.example.fragments.Model.Film.Film;
 import com.example.fragments.Model.Film.searchFilmModel;
 import com.example.fragments.Model.List.List;
+import com.example.fragments.Model.List.ListModel;
 import com.example.fragments.Recyclers.AddMovieListsRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -135,16 +136,16 @@ public class DetailFragment extends Fragment {
         dialog.show();
 
 
-        ArrayList<List> arrayList = new ArrayList<List>();
-        arrayList.add(new List("Comedia", 8));
-        arrayList.add(new List("Ciència", 8));
-        arrayList.add(new List("Terror", 8));
-        arrayList.add(new List("Comedia", 8));
-        arrayList.add(new List("Ciència", 8));
-        arrayList.add(new List("Terror", 8));
-        arrayList.add(new List("Comedia", 8));
-        arrayList.add(new List("Ciència", 8));
-        arrayList.add(new List("Terror", 8));
+        ArrayList<ListModel> arrayList = new ArrayList<ListModel>();
+        arrayList.add(new ListModel("Comedia", 8));
+        arrayList.add(new ListModel("Ciència", 8));
+        arrayList.add(new ListModel("Terror", 8));
+        arrayList.add(new ListModel("Comedia", 8));
+        arrayList.add(new ListModel("Ciència", 8));
+        arrayList.add(new ListModel("Terror", 8));
+        arrayList.add(new ListModel("Comedia", 8));
+        arrayList.add(new ListModel("Ciència", 8));
+        arrayList.add(new ListModel("Terror", 8));
 
 
         RecyclerView recyclerView = alertCustomdialog.findViewById(R.id.recyclerList);

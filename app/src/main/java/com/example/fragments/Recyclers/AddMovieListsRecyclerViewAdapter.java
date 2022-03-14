@@ -22,15 +22,16 @@ import com.example.fragments.Config.GlideApp;
 import com.example.fragments.DetailFragment;
 import com.example.fragments.Model.Film.Film;
 import com.example.fragments.Model.List.List;
+import com.example.fragments.Model.List.ListModel;
 import com.example.fragments.R;
 
 import java.util.ArrayList;
 
 public class AddMovieListsRecyclerViewAdapter extends RecyclerView.Adapter<AddMovieListsRecyclerViewAdapter.ViewHolder> {
-    private ArrayList<List> arrayList;
+    private ArrayList<ListModel> arrayList;
     private Context context;
 
-    public AddMovieListsRecyclerViewAdapter(ArrayList<List> arrN, Context c){
+    public AddMovieListsRecyclerViewAdapter(ArrayList<ListModel> arrN, Context c){
         this.arrayList = arrN;
         this.context = c;
     }
@@ -46,13 +47,13 @@ public class AddMovieListsRecyclerViewAdapter extends RecyclerView.Adapter<AddMo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
 
-        holder.listTitle.setText(arrayList.get(i).getTitle());
-        holder.itemCount.setText(String.valueOf(arrayList.get(i).getCount()));
+        holder.listTitle.setText(arrayList.get(i).getName());
+        holder.itemCount.setText(String.valueOf(arrayList.get(i).getItem_count()));
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("select", arrayList.get(i).getTitle());
+                Log.i("select", arrayList.get(i).getName());
             }
         });
 

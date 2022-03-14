@@ -6,13 +6,21 @@ public class ListModel {
     public String language;
     public int favorite_count;
     public int id;
+    public int item_count;
     public String list_type;
     public String poster_path;
+
+    public ListModel(String name, int item_count) {
+        this.name = name;
+        this.description = "Default desc";
+        this.language = "en-US";
+        this.item_count = item_count;
+    }
 
     public ListModel(String name, String description) {
         this.name = name;
         this.description = description;
-        this.language = "en";
+        this.language = "en-US";
     }
 
     public String getName() {
@@ -69,5 +77,13 @@ public class ListModel {
 
     public void setPoster_path(String poster_path) {
         this.poster_path = poster_path;
+    }
+
+    public int getItem_count() {
+        return item_count;
+    }
+
+    public void setItem_count(int item_count) {
+        this.item_count = item_count;
     }
 }
