@@ -4,6 +4,7 @@ import com.example.fragments.Model.Film.FavFilmRequest;
 import com.example.fragments.Model.Film.FavFilmResponse;
 import com.example.fragments.Model.Film.searchFilmModel;
 import com.example.fragments.Model.List.ListModel;
+import com.example.fragments.Model.List.ListRequest;
 import com.example.fragments.Model.List.ListResponse;
 
 import retrofit2.Call;
@@ -26,4 +27,6 @@ public interface ApiCall {
     @POST("list?")
     Call<ListResponse> postList(@Query("api_key") String api_key, @Query("session_id") String session_id, @Body ListModel listModel);
 
+    @GET("account/get2_audio2/lists?")
+    Call<ListRequest> getLists(@Query("api_key") String api_key, @Query("language") String language, @Query("session_id") String session_id, @Query("page") int page);
 }
