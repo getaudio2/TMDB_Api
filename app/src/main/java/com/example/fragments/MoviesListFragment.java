@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.example.fragments.Config.ApiCall;
 import com.example.fragments.Model.Film.FavFilmRequest;
 import com.example.fragments.Model.Film.Film;
+import com.example.fragments.Model.Film.ListFilmRequest;
 import com.example.fragments.Model.Film.searchFilmModel;
 import com.example.fragments.Recyclers.SearchMovieRecyclerViewAdapter;
 
@@ -33,6 +34,7 @@ public class MoviesListFragment extends Fragment {
 
     public String sectionTitle;
     RecyclerView recyclerView;
+    public int id_list;
 
     public MoviesListFragment() {
         // Required empty public constructor
@@ -40,6 +42,11 @@ public class MoviesListFragment extends Fragment {
 
     public MoviesListFragment(String title) {
         this.sectionTitle = title;
+    }
+
+    public MoviesListFragment(String name, int id_list) {
+        this.sectionTitle = name;
+        this.id_list = id_list;
     }
 
     @Override
@@ -52,27 +59,51 @@ public class MoviesListFragment extends Fragment {
         txtSectionTitle.setText(sectionTitle);
         recyclerView = view.findViewById(R.id.recyclerSearch);
 
-        ApiCall apiCall = retrofit.create(ApiCall.class);
-        Call<FavFilmRequest> call = apiCall.getFavMovies(API_KEY, SESSION_ID);
+        if (sectionTitle.equals("Favourite movies")) {
+            ApiCall apiCall = retrofit.create(ApiCall.class);
+            Call<FavFilmRequest> call = apiCall.getFavMovies(API_KEY, SESSION_ID);
 
-        call.enqueue(new Callback<FavFilmRequest>(){
-            @Override
-            public void onResponse(Call<FavFilmRequest> call, Response<FavFilmRequest> response) {
-                if(response.code()!=200){
-                    Log.i("testApi", "checkConnection");
-                    return;
-                }else {
-                    ArrayList<Film> arraySearch = new ArrayList<>();
-                    arraySearch = response.body().getResults();
-                    callRecycler(arraySearch);
+            call.enqueue(new Callback<FavFilmRequest>(){
+                @Override
+                public void onResponse(Call<FavFilmRequest> call, Response<FavFilmRequest> response) {
+                    if(response.code()!=200){
+                        Log.i("testApi", "checkConnection");
+                        return;
+                    }else {
+                        ArrayList<Film> arraySearch = new ArrayList<>();
+                        arraySearch = response.body().getResults();
+                        callRecycler(arraySearch);
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<FavFilmRequest> call, Throwable t) {
+                @Override
+                public void onFailure(Call<FavFilmRequest> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        } else {
+            ApiCall apiCall = retrofit.create(ApiCall.class);
+            Call<ListFilmRequest> call = apiCall.getListMovies(id_list, API_KEY, "en-US");
+
+            call.enqueue(new Callback<ListFilmRequest>(){
+                @Override
+                public void onResponse(Call<ListFilmRequest> call, Response<ListFilmRequest> response) {
+                    if(response.code()!=200){
+                        Log.i("testApi", "checkConnection");
+                        return;
+                    }else {
+                        ArrayList<Film> arraySearch = new ArrayList<>();
+                        arraySearch = response.body().getResults();
+                        callRecycler(arraySearch);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ListFilmRequest> call, Throwable t) {
+
+                }
+            });
+        }
 
         return view;
     }

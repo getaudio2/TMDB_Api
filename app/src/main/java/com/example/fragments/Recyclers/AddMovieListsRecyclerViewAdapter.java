@@ -23,8 +23,10 @@ import com.example.fragments.DetailFragment;
 import com.example.fragments.Model.Film.Film;
 import com.example.fragments.Model.List.List;
 import com.example.fragments.Model.List.ListModel;
+import com.example.fragments.MoviesListFragment;
 import com.example.fragments.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class AddMovieListsRecyclerViewAdapter extends RecyclerView.Adapter<AddMovieListsRecyclerViewAdapter.ViewHolder> {
@@ -54,6 +56,14 @@ public class AddMovieListsRecyclerViewAdapter extends RecyclerView.Adapter<AddMo
             @Override
             public void onClick(View view) {
                 Log.i("select", arrayList.get(i).getName());
+
+                ListModel listModel = arrayList.get(i);
+
+                AppCompatActivity app = (AppCompatActivity) view.getContext();
+
+                MoviesListFragment moviesListFragment = new MoviesListFragment(listModel.getName(), listModel.getId());
+
+                app.getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, moviesListFragment).commit();
             }
         });
 
