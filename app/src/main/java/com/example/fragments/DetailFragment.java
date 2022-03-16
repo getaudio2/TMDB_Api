@@ -42,6 +42,7 @@ import retrofit2.Response;
 
 public class DetailFragment extends Fragment {
 
+    Film film;
 
     public DetailFragment() {
         // Required empty public constructor
@@ -54,7 +55,7 @@ public class DetailFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
 
         Bundle bundle = getArguments();
-        Film film = (Film) bundle.getSerializable("Film");
+        film = (Film) bundle.getSerializable("Film");
 
         TextView txtDetailTitle = view.findViewById(R.id.txtDetailTitle);
         TextView txtDetailDesc = view.findViewById(R.id.txtDetailDesc);
@@ -157,7 +158,7 @@ public class DetailFragment extends Fragment {
                     arrayLists.add(new ListModel("Comedia", 8));
                     arrayLists.add(new ListModel("Ciència", 8));
                     arrayLists.add(new ListModel("Terror", 8));
-                    callRecycler(arrayLists, alertCustomdialog, dialog);
+                    callRecycler(arrayLists, alertCustomdialog, dialog, film);
                 }
             }
 
@@ -169,9 +170,9 @@ public class DetailFragment extends Fragment {
 
     }
 
-    public void callRecycler(ArrayList<ListModel> arrayLists, View alertCustomdialog, AlertDialog dialog) {
+    public void callRecycler(ArrayList<ListModel> arrayLists, View alertCustomdialog, AlertDialog dialog, Film film) {
         RecyclerView recyclerView = alertCustomdialog.findViewById(R.id.recyclerList);
-        AddMovieListsRecyclerViewAdapter adapter = new AddMovieListsRecyclerViewAdapter(arrayLists, getContext(), dialog);
+        AddMovieListsRecyclerViewAdapter adapter = new AddMovieListsRecyclerViewAdapter(arrayLists, getContext(), dialog, film);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

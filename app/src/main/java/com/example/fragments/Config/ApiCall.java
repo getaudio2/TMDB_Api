@@ -1,5 +1,7 @@
 package com.example.fragments.Config;
 
+import com.example.fragments.Model.Film.AddFilmBodyRequest;
+import com.example.fragments.Model.Film.AddFilmResponse;
 import com.example.fragments.Model.Film.FavFilmRequest;
 import com.example.fragments.Model.Film.FavFilmResponse;
 import com.example.fragments.Model.Film.ListFilmRequest;
@@ -35,5 +37,6 @@ public interface ApiCall {
     @GET("list/{list_id}?")
     Call<ListFilmRequest> getListMovies(@Path("list_id") int list_id, @Query("api_key") String api_key, @Query("language") String language);
 
-
+    @POST("list/{list_id}/add_item?")
+    Call<AddFilmResponse> addFilmToList(@Path("list_id") int list_id, @Query("api_key") String api_key, @Query("session_id") String session_id, @Body AddFilmBodyRequest addFilmBodyRequest);
 }
