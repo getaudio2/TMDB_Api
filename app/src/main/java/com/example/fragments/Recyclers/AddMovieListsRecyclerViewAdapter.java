@@ -69,7 +69,9 @@ public class AddMovieListsRecyclerViewAdapter extends RecyclerView.Adapter<AddMo
 
                 AppCompatActivity app = (AppCompatActivity) view.getContext();
 
-                dialog.dismiss();
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
 
                 MoviesListFragment moviesListFragment = new MoviesListFragment(listModel.getName(), listModel.getId());
 
