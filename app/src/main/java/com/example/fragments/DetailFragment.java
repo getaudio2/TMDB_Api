@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.fragments.Config.ApiCall;
 import com.example.fragments.Config.GlideApp;
+import com.example.fragments.Model.Film.FavFilmRequest;
 import com.example.fragments.Model.Film.FavFilmResponse;
 import com.example.fragments.Model.Film.Film;
 import com.example.fragments.Model.Film.searchFilmModel;
@@ -43,6 +44,7 @@ import retrofit2.Response;
 public class DetailFragment extends Fragment {
 
     Film film;
+    boolean isFav = false;
 
     public DetailFragment() {
         // Required empty public constructor
@@ -63,11 +65,38 @@ public class DetailFragment extends Fragment {
         ImageButton btnFav = view.findViewById(R.id.btnFav);
         ImageButton btnAddtoList = view.findViewById(R.id.btnAddtoList);
 
-        if(bundle.getBoolean("fav") == true){
-            btnFav.setImageResource(R.drawable.ic_fav_on);
-            Log.i("test", "boolean true aaaaa");
-        }
+        ApiCall apiCall = retrofit.create(ApiCall.class);
+        Call<FavFilmRequest> call = apiCall.getFavMovies(API_KEY, SESSION_ID);
 
+        call.enqueue(new Callback<FavFilmRequest>() {
+            @Override
+            public void onResponse(Call<FavFilmRequest> call, Response<FavFilmRequest> response) {
+                if (response.code() != 200) {
+                    Log.i("testApi", "checkConnection");
+                    return;
+                } else {
+                    ArrayList<Film> favFilms = response.body().getResults();
+
+                    for (int i = 0; i < favFilms.size(); i++) {
+                        if (favFilms.get(i).getId() == film.getId()) {
+                            btnFav.setImageResource(R.drawable.ic_fav_on);
+                            isFav = true;
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FavFilmRequest> call, Throwable t) {
+                t.getCause();
+            }
+        });
+
+
+        if (!isFav) {
+            btnFav.setImageResource(R.drawable.ic_fav_off);
+        }
 
         txtDetailTitle.setText(film.getOriginal_title());
         txtDetailDesc.setText(film.getOverview());
@@ -80,9 +109,11 @@ public class DetailFragment extends Fragment {
         btnFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnFav.setImageResource(R.drawable.ic_fav_on);
-
-                bundle.putBoolean("fav", true);
+                if (isFav) {
+                    btnFav.setImageResource(R.drawable.ic_fav_off);
+                } else {
+                    btnFav.setImageResource(R.drawable.ic_fav_on);
+                }
 
                 FavFilmResponse favFilmResponse = new FavFilmResponse(film.getId());
                 favFilmResponse.setFavorite(true);
