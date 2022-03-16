@@ -30,6 +30,7 @@ import com.example.fragments.Model.Film.Film;
 import com.example.fragments.Model.Film.searchFilmModel;
 import com.example.fragments.Model.List.List;
 import com.example.fragments.Model.List.ListModel;
+import com.example.fragments.Model.List.ListRequest;
 import com.example.fragments.Recyclers.AddMovieListsRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -135,21 +136,42 @@ public class DetailFragment extends Fragment {
 
         dialog.show();
 
+        ApiCall apiCall = retrofit.create(ApiCall.class);
+        Call<ListRequest> call = apiCall.getLists(API_KEY, "en-US", SESSION_ID, 1);
 
-        ArrayList<ListModel> arrayList = new ArrayList<ListModel>();
-        arrayList.add(new ListModel("Comedia", 8));
-        arrayList.add(new ListModel("Ciència", 8));
-        arrayList.add(new ListModel("Terror", 8));
-        arrayList.add(new ListModel("Comedia", 8));
-        arrayList.add(new ListModel("Ciència", 8));
-        arrayList.add(new ListModel("Terror", 8));
-        arrayList.add(new ListModel("Comedia", 8));
-        arrayList.add(new ListModel("Ciència", 8));
-        arrayList.add(new ListModel("Terror", 8));
+        call.enqueue(new Callback<ListRequest>(){
+            @Override
+            public void onResponse(Call<ListRequest> call, Response<ListRequest> response) {
+                if(response.code()!=200){
+                    Log.i("testApi", "checkConnection");
+                    return;
+                }else {
+                    ArrayList<ListModel> arrayLists = new ArrayList<>();
+                    arrayLists = response.body().getResults();
+                    arrayLists.add(new ListModel("Comedia", 8));
+                    arrayLists.add(new ListModel("Ciència", 8));
+                    arrayLists.add(new ListModel("Terror", 8));
+                    arrayLists.add(new ListModel("Comedia", 8));
+                    arrayLists.add(new ListModel("Ciència", 8));
+                    arrayLists.add(new ListModel("Terror", 8));
+                    arrayLists.add(new ListModel("Comedia", 8));
+                    arrayLists.add(new ListModel("Ciència", 8));
+                    arrayLists.add(new ListModel("Terror", 8));
+                    callRecycler(arrayLists, alertCustomdialog, dialog);
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ListRequest> call, Throwable t) {
 
+            }
+        });
+
+    }
+
+    public void callRecycler(ArrayList<ListModel> arrayLists, View alertCustomdialog, AlertDialog dialog) {
         RecyclerView recyclerView = alertCustomdialog.findViewById(R.id.recyclerList);
-        AddMovieListsRecyclerViewAdapter adapter = new AddMovieListsRecyclerViewAdapter(arrayList, getContext());
+        AddMovieListsRecyclerViewAdapter adapter = new AddMovieListsRecyclerViewAdapter(arrayLists, getContext(), dialog);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

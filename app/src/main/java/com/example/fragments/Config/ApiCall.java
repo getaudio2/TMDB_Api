@@ -32,6 +32,6 @@ public interface ApiCall {
     @GET("account/get2_audio2/lists?")
     Call<ListRequest> getLists(@Query("api_key") String api_key, @Query("language") String language, @Query("session_id") String session_id, @Query("page") int page);
 
-    @GET("list/")
+    @GET("list/{list_id}?")
     Call<ListFilmRequest> getListMovies(@Path("list_id") int list_id, @Query("api_key") String api_key, @Query("language") String language);
 }

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -32,10 +33,17 @@ import java.util.ArrayList;
 public class AddMovieListsRecyclerViewAdapter extends RecyclerView.Adapter<AddMovieListsRecyclerViewAdapter.ViewHolder> {
     private ArrayList<ListModel> arrayList;
     private Context context;
+    private AlertDialog dialog;
 
     public AddMovieListsRecyclerViewAdapter(ArrayList<ListModel> arrN, Context c){
         this.arrayList = arrN;
         this.context = c;
+    }
+
+    public AddMovieListsRecyclerViewAdapter(ArrayList<ListModel> arrN, Context c, AlertDialog dialog){
+        this.arrayList = arrN;
+        this.context = c;
+        this.dialog = dialog;
     }
 
     @NonNull
@@ -60,6 +68,8 @@ public class AddMovieListsRecyclerViewAdapter extends RecyclerView.Adapter<AddMo
                 ListModel listModel = arrayList.get(i);
 
                 AppCompatActivity app = (AppCompatActivity) view.getContext();
+
+                dialog.dismiss();
 
                 MoviesListFragment moviesListFragment = new MoviesListFragment(listModel.getName(), listModel.getId());
 

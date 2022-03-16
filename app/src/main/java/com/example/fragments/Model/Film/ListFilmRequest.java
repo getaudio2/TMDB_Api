@@ -3,14 +3,14 @@ package com.example.fragments.Model.Film;
 import java.util.ArrayList;
 
 public class ListFilmRequest {
-    public int listId;
-    public ArrayList<Film> results;
+    public int id;
+    public ArrayList<Film> items;
 
     public int getListId() {
-        return listId;
+        return id;
     }
 
-    public ArrayList<Film> getResults() {
-        return results;
+    public ArrayList<Film> getItems() {
+        return items;
     }
 }

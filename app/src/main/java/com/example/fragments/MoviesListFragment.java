@@ -93,7 +93,7 @@ public class MoviesListFragment extends Fragment {
                         return;
                     }else {
                         ArrayList<Film> arraySearch = new ArrayList<>();
-                        arraySearch = response.body().getResults();
+                        arraySearch = response.body().getItems();
                         callRecycler(arraySearch);
                     }
                 }
